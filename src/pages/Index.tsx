@@ -442,6 +442,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+        <section className="nlh-lead" id="lien-he">
+          <nlh-contact site="nam" lang="vi" topics="Tham gia Dự án NAM|Hợp tác|Tài trợ – đồng hành" />
+        </section>
       </main>
 
       <footer className="bg-black py-12 border-t border-white/10">
