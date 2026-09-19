@@ -23,4 +23,9 @@ i18n
         }
     });
 
+// Keep <html lang> in sync so the shared lead form (<nlh-contact>) switches language with the page.
+const syncHtmlLang = (lng: string) => { document.documentElement.lang = lng.startsWith('en') ? 'en' : 'vi'; };
+syncHtmlLang(i18n.language || 'vi');
+i18n.on('languageChanged', syncHtmlLang);
+
 export default i18n;
