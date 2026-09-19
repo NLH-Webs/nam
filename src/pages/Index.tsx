@@ -443,7 +443,7 @@ const Index = () => {
           </div>
         </section>
         <section className="nlh-lead" id="lien-he">
-          <nlh-contact site="nam" lang="vi" topics="Tham gia Dự án NAM|Hợp tác|Tài trợ – đồng hành" />
+          <nlh-contact site="nam" topics-vi="Tham gia Dự án NAM|Hợp tác|Tài trợ – đồng hành" topics-en="Join the NAM Project|Partnership|Sponsorship" />
         </section>
       </main>
 
