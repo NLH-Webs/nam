@@ -53,48 +53,43 @@ export const vi = {
         }
     },
     slogan: {
-        title: "CHÚNG TÔI PROVIDE - PROTECT",
+        title: "TRAO NỀN TẢNG, GIỮ ANH EM",
         provide_1: "Chúng tôi",
-        provide_bold: "Cung cấp (Provide)",
+        provide_bold: "trao",
         provide_2: "nền tảng và kiến thức.",
         protect_1: "Chúng tôi",
-        protect_bold: "Bảo vệ (Protect)",
+        protect_bold: "giữ gìn",
         protect_2: "giá trị và tinh thần anh em.",
     },
     form: {
         title: "Sẵn Sàng Trở Thành Một Phần Của \"NAM\"?",
-        subtitle: "Hoàn thành các bước dưới đây để gia nhập vào cộng đồng những người đàn ông kiên cường.",
-        step1: {
-            title: "Để Lại Thông Tin Kết Nối",
-            name_label: "Họ và Tên",
-            name_placeholder: "Nguyễn Văn A",
-            email_label: "Email",
-            email_placeholder: "email@example.com",
-            phone_label: "Số điện thoại",
-            phone_placeholder: "09xxxxxxxx",
-            submit: "GỬI THÔNG TIN",
-            sending: "ĐANG GỬI...",
-            privacy: "Chúng tôi cam kết bảo mật thông tin của bạn.",
-            success_title: "Cảm ơn bạn đã kết nối",
-            success_desc: "NAM sẽ liên hệ với bạn sớm nhất.",
-            reset_btn: "Điền lại thông tin"
-        },
-        step2: {
-            title: "Gia Nhập Ngôi Nhà Chung",
-            btn_google: "Điền Form Đăng Ký Chi Tiết (Google Form)",
-            btn_facebook: "Theo Dõi Facebook Page",
-            btn_instagram: "Kết Nối Qua Instagram"
-        }
+        subtitle: "Để lại vài dòng. Anh em trong đội NAM sẽ liên hệ lại với bạn.",
+        privacy: "Thông tin bạn gửi chỉ dùng để liên hệ lại với bạn.",
+        privacy_link: "Chính sách bảo mật"
     },
     footer: {
         project: "DỰ ÁN NAM",
         belong_to: "Một cộng đồng thuộc",
         team: "NhiLe Team",
-        slogan: "\"Chúng tôi Provide - Protect\"",
+        slogan: "\"Trao nền tảng, giữ anh em\"",
         facebook: "Facebook",
         instagram: "Instagram",
         telegram: "Telegram",
-        copyright: "© 2024 Dự án NAM by NhiLe Team. All Rights Reserved."
+        legal: "Thuộc hệ sinh thái Công ty Cổ phần NhiLe Holding, MST 0402230476, Đà Nẵng.",
+        copyright: "© {{year}} Dự án NAM · NhiLe Team"
+    },
+    privacy: {
+        title: "Chính sách bảo mật",
+        updated: "Cập nhật ngày 16/11/2026",
+        back: "Về trang chủ",
+        sections: [
+            { h: "Chúng tôi nhận gì", p: "Khi bạn gửi form trên nam.nhi.sg, chúng tôi nhận những gì bạn tự điền: họ tên, email hoặc số điện thoại, cách bạn muốn được liên hệ, quốc gia, điều bạn quan tâm, và lời nhắn nếu có. Form gửi kèm trang bạn đang mở, trang dẫn bạn tới, múi giờ và loại trình duyệt, để đội biết bạn tới từ đâu." },
+            { h: "Dùng để làm gì", p: "Chỉ để đội NAM và NhiLe Team liên hệ lại với bạn về điều bạn hỏi. Chúng tôi không bán, không cho thuê, không chia thông tin của bạn cho bên ngoài." },
+            { h: "Lưu ở đâu", p: "Thông tin được lưu trong bảng tính Google của NhiLe và gửi về hộp thư contact@nhi.sg. Chỉ người trong đội cần liên hệ với bạn mới xem. Trong lúc bạn đang điền, bản nháp được giữ tạm trên chính trình duyệt của bạn và tự xoá khi gửi xong." },
+            { h: "Đếm lượt xem", p: "Web dùng Google Analytics để đếm lượt xem trang. Công cụ này không nhận họ tên, email hay số điện thoại bạn điền." },
+            { h: "Bạn muốn xem, sửa hoặc xoá", p: "Gửi email tới contact@nhi.sg, ghi rõ tên và email hoặc số điện thoại bạn đã dùng. Chúng tôi sẽ làm và báo lại cho bạn." },
+            { h: "Ai chịu trách nhiệm", p: "Dự án NAM là cộng đồng thuộc NhiLe Team, trong hệ sinh thái Công ty Cổ phần NhiLe Holding (NHILE HOLDING JOINT STOCK COMPANY), MST 0402230476, Đà Nẵng, Việt Nam." }
+        ]
     },
     not_found: {
         title: "Không tìm thấy trang",
