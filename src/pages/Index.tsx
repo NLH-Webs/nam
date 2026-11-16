@@ -44,7 +44,7 @@ const Index = () => {
             <p className="text-xl sm:text-2xl leading-snug mb-8" style={cream}>
               {t("hero.line")}
             </p>
-            <a href="#dang-ky" className="nam-cta">{t("hero.cta")}</a>
+            <a href="#dang-ky" className="nam-cta" data-track="cta" data-cta="hero-dang-ky">{t("hero.cta")}</a>
             <p className="mt-6 text-sm" style={cream2}>{t("hero.proof")}</p>
           </div>
         </div>
@@ -79,7 +79,7 @@ const Index = () => {
               ))}
             </div>
             <p className="text-xl sm:text-2xl font-bold mb-8" style={gold}>{t("values.slogan")}</p>
-            <a href="#dang-ky" className="nam-cta">{t("hero.cta")}</a>
+            <a href="#dang-ky" className="nam-cta" data-track="cta" data-cta="gia-tri-dang-ky">{t("hero.cta")}</a>
           </div>
         </section>
 
@@ -97,13 +97,13 @@ const Index = () => {
         <p className="mx-auto text-lg font-black tracking-wider mb-2" style={cream}>{t("footer.project")}</p>
         <p className="mx-auto mb-6">{t("footer.belong_to")} <span style={gold}>{t("footer.team")}</span></p>
         <div className="flex justify-center flex-wrap gap-6 mb-6 font-semibold">
-          <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer" className="hover:underline">Facebook</a>
-          <a href="https://www.instagram.com/namnhi.nlt/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
-          <a href="https://t.me/namnhi" target="_blank" rel="noopener noreferrer" className="hover:underline">Telegram</a>
+          <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer" className="hover:underline" data-track="contact" data-cta="footer-facebook">Facebook</a>
+          <a href="https://www.instagram.com/namnhi.nlt/" target="_blank" rel="noopener noreferrer" className="hover:underline" data-track="contact" data-cta="footer-instagram">Instagram</a>
+          <a href="https://t.me/namnhi" target="_blank" rel="noopener noreferrer" className="hover:underline" data-track="contact" data-cta="footer-telegram">Telegram</a>
         </div>
         <p className="mx-auto mb-2">{t("footer.legal")}</p>
         <p className="mx-auto mb-2">
-          <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4">{t("form.privacy_link")}</Link>
+          <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4" data-track="contact" data-cta="footer-chinh-sach">{t("form.privacy_link")}</Link>
         </p>
         <p className="mx-auto opacity-80">{t("footer.copyright", { year: new Date().getFullYear() })}</p>
       </footer>

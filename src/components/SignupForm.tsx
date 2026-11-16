@@ -95,8 +95,8 @@ export const SignupForm = () => {
 
   const mailto =
     "mailto:" + TEAM_EMAIL +
-    "?subject=" + encodeURIComponent("[NAM] Đăng ký · " + name.trim()) +
-    "&body=" + encodeURIComponent([name.trim(), normPhone(), email.trim(), "— nam.nhi.sg"].join("\n"));
+    "?subject=" + encodeURIComponent("[nam.nhi.sg] Gửi bằng email · " + name.trim()) +
+    "&body=" + encodeURIComponent([name.trim(), normPhone(), email.trim(), "", "— nam.nhi.sg · " + location.href, "utm: " + [ss("utm_source"), ss("utm_medium"), ss("utm_campaign")].join(" / ")].join("\n"));
 
   return (
     <form onSubmit={submit} noValidate className="space-y-5 text-left">
@@ -131,11 +131,11 @@ export const SignupForm = () => {
         <div role="alert" className="rounded-xl p-4 border" style={{ borderColor: "rgba(248,244,238,.3)", background: "var(--nam-black)" }}>
           <p className="font-bold mb-1" style={{ color: "var(--nam-cream)" }}>{t("form.err_title")}</p>
           <p className="text-sm mb-3" style={{ color: "var(--nam-cream-2)" }}>{t("form.err_body")}</p>
-          <a href={mailto} className="underline underline-offset-4 font-semibold" style={{ color: "var(--nam-gold-light)" }}>{t("form.err_mail")}</a>
+          <a href={mailto} data-track="contact" data-cta="form-loi-gui-email" className="underline underline-offset-4 font-semibold" style={{ color: "var(--nam-gold-light)" }}>{t("form.err_mail")}</a>
         </div>
       )}
 
-      <button type="submit" className="nam-cta w-full" disabled={status.kind === "sending"}>
+      <button type="submit" className="nam-cta w-full" data-track="cta" data-cta="form-dang-ky" disabled={status.kind === "sending"}>
         {status.kind === "sending" ? t("form.sending") : status.kind === "error" ? t("form.retry") : t("form.submit")}
       </button>
     </form>
