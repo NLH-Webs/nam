@@ -66,3 +66,12 @@ All colors MUST be HSL.
 }
 .nam-input::placeholder { color: rgba(248, 244, 238, .5); }
 .nam-input:focus { outline: 3px solid rgba(232, 192, 112, .5); outline-offset: 1px; border-color: var(--nam-gold-light); }
+
+/* Chuyển động khi cuộn: 300 ms, chỉ opacity và dịch nhẹ. Tắt khi người dùng chọn giảm chuyển động. */
+.nam-reveal { opacity: 0; transform: translateY(16px); transition: opacity .3s ease-out, transform .3s ease-out; }
+.nam-reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .nam-reveal, .nam-reveal.is-in { opacity: 1; transform: none; transition: none; }
+  .nam-cta { transition: none; }
+  .nam-cta:hover { transform: none; }
+}

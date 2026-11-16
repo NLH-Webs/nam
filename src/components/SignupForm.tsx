@@ -15,6 +15,9 @@ declare global {
   interface Window { gtag?: (...args: unknown[]) => void }
 }
 
+// Channel names as the NhiLe Leads sheet already receives them from nlh-contact.
+const CHANNEL_VALUE = { zalo: "Zalo", phone: "Gọi điện", email: "Email" } as const;
+
 const ss = (k: string) => { try { return sessionStorage.getItem("nlh_" + k) || ""; } catch { return ""; } };
 
 export const SignupForm = () => {
@@ -23,6 +26,7 @@ export const SignupForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [channel, setChannel] = useState<"zalo" | "phone" | "email">("zalo");
   const [consent, setConsent] = useState(false);
   const [hp, setHp] = useState("");
   const [msg, setMsg] = useState("");
@@ -37,7 +41,7 @@ export const SignupForm = () => {
 
   const validate = () => {
     if (!name.trim()) return t("form.need_name");
-    if (!phone.trim()) return t("form.need_phone");
+    if (channel === "email" ? !email.trim() : !phone.trim()) return channel === "email" ? t("form.need_email") : t("form.need_phone");
     if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return t("form.bad_email");
     if (!consent) return t("form.need_consent");
     return "";
@@ -52,7 +56,7 @@ export const SignupForm = () => {
     const payload = {
       site: "nam", lang,
       name: name.trim(), email: email.trim(), phone: normPhone(),
-      channel: "Zalo", country: "", topic: lang === "en" ? "Join the NAM Project" : "Tham gia Dự án NAM",
+      channel: CHANNEL_VALUE[channel], country: "", topic: lang === "en" ? "Join the NAM Project" : "Tham gia Dự án NAM",
       organisation: "", bestTime: "", message: "",
       consent: true, website: hp,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
@@ -88,7 +92,13 @@ export const SignupForm = () => {
     return (
       <div role="status" className="text-center py-10">
         <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--nam-gold-light)" }}>{t("form.ok_title")}</h3>
-        <p style={{ color: "var(--nam-cream-2)" }}>{t("form.ok_body", { id: status.id })}</p>
+        <p className="text-base mb-6" style={{ color: "var(--nam-cream-2)" }}>
+          {t("form.ok_body", { id: status.id, channel: t(`form.chs_${channel}`) })}
+        </p>
+        <p className="text-base mb-3" style={{ color: "var(--nam-cream)" }}>{t("form.ok_next")}</p>
+        <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer"
+          className="underline underline-offset-4 font-semibold" style={{ color: "var(--nam-gold-light)" }}
+          data-track="contact" data-cta="cam-on-facebook">{t("form.ok_next_link")}</a>
       </div>
     );
   }
@@ -96,7 +106,7 @@ export const SignupForm = () => {
   const mailto =
     "mailto:" + TEAM_EMAIL +
     "?subject=" + encodeURIComponent("[nam] form-loi-gui-email") +
-    "&body=" + encodeURIComponent([name.trim(), normPhone(), email.trim(), "", "— nam.nhi.sg · " + location.href, "utm: " + [ss("utm_source"), ss("utm_medium"), ss("utm_campaign")].join(" / ")].join("\n"));
+    "&body=" + encodeURIComponent([name.trim(), normPhone(), email.trim(), "Kênh: " + CHANNEL_VALUE[channel], "", "— nam.nhi.sg · " + location.href, "utm: " + [ss("utm_source"), ss("utm_medium"), ss("utm_campaign")].join(" / ")].join("\n"));
 
   return (
     <form onSubmit={submit} noValidate className="space-y-5 text-left">
@@ -104,19 +114,33 @@ export const SignupForm = () => {
         <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{t("form.name")}</span>
         <input className="nam-input" name="name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
       </label>
+      <fieldset>
+        <legend className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{t("form.channel")}</legend>
+        <div className="grid grid-cols-3 gap-2">
+          {(["zalo", "phone", "email"] as const).map((c) => (
+            <label key={c} className="flex items-center justify-center min-h-[48px] rounded-xl cursor-pointer text-base font-semibold border focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#E8C070]"
+              style={channel === c
+                ? { background: "var(--nam-gold-light)", color: "var(--nam-black)", borderColor: "var(--nam-gold-light)" }
+                : { background: "var(--nam-black)", color: "var(--nam-cream)", borderColor: "rgba(248,244,238,.28)" }}>
+              <input type="radio" name="channel" value={c} checked={channel === c} onChange={() => setChannel(c)} className="sr-only" />
+              {t(`form.ch_${c}`)}
+            </label>
+          ))}
+        </div>
+      </fieldset>
       <label className="block">
-        <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{t("form.phone")}</span>
+        <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{channel === "email" ? t("form.phone_optional") : t("form.phone")}</span>
         <input className="nam-input" name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="09xx xxx xxx" value={phone} onChange={(e) => setPhone(e.target.value)} />
       </label>
       <label className="block">
-        <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{t("form.email")}</span>
+        <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{channel === "email" ? t("form.email_required") : t("form.email")}</span>
         <input className="nam-input" name="email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
       <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
         <input tabIndex={-1} autoComplete="off" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
       </div>
-      <label className="flex gap-3 items-start text-sm" style={{ color: "var(--nam-cream-2)" }}>
-        <input type="checkbox" className="mt-1 w-5 h-5 flex-none accent-[#B7860B]" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+      <label className="flex gap-3 items-start text-base" style={{ color: "var(--nam-cream-2)" }}>
+        <input type="checkbox" className="mt-0.5 w-6 h-6 flex-none accent-[#B7860B]" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
           {t("form.consent")}{" "}
           <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4" style={{ color: "var(--nam-gold-light)" }}>
@@ -125,12 +149,12 @@ export const SignupForm = () => {
         </span>
       </label>
 
-      {msg && <p role="alert" className="text-sm font-semibold" style={{ color: "#FF9C8F" }}>{msg}</p>}
+      {msg && <p role="alert" className="text-base font-semibold" style={{ color: "#FF9C8F" }}>{msg}</p>}
 
       {status.kind === "error" && (
         <div role="alert" className="rounded-xl p-4 border" style={{ borderColor: "rgba(248,244,238,.3)", background: "var(--nam-black)" }}>
           <p className="font-bold mb-1" style={{ color: "var(--nam-cream)" }}>{t("form.err_title")}</p>
-          <p className="text-sm mb-3" style={{ color: "var(--nam-cream-2)" }}>{t("form.err_body")}</p>
+          <p className="text-base mb-3" style={{ color: "var(--nam-cream-2)" }}>{t("form.err_body")}</p>
           <a href={mailto} data-track="contact" data-cta="form-loi-gui-email" className="underline underline-offset-4 font-semibold" style={{ color: "var(--nam-gold-light)" }}>{t("form.err_mail")}</a>
         </div>
       )}
