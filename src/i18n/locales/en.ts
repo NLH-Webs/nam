@@ -53,48 +53,43 @@ export const en = {
         }
     },
     slogan: {
-        title: "WE PROVIDE - PROTECT",
+        title: "WE PROVIDE, WE PROTECT",
         provide_1: "We",
-        provide_bold: "Provide",
-        provide_2: "platforms and knowledge.",
+        provide_bold: "provide",
+        provide_2: "the ground and the knowledge.",
         protect_1: "We",
-        protect_bold: "Protect",
-        protect_2: "values and brotherhood spirit.",
+        protect_bold: "protect",
+        protect_2: "our values and our brotherhood.",
     },
     form: {
         title: "Ready to Become Part of \"NAM\"?",
-        subtitle: "Complete the steps below to join the community of resilient men.",
-        step1: {
-            title: "Leave Info to Connect",
-            name_label: "Full Name",
-            name_placeholder: "Nguyen Van A",
-            email_label: "Email",
-            email_placeholder: "email@example.com",
-            phone_label: "Phone Number",
-            phone_placeholder: "09xxxxxxxx",
-            submit: "SEND INFORMATION",
-            sending: "SENDING...",
-            privacy: "We commit to keeping your information confidential.",
-            success_title: "Thank you for connecting",
-            success_desc: "NAM will contact you as soon as possible.",
-            reset_btn: "Fill information again"
-        },
-        step2: {
-            title: "Join the Common Home",
-            btn_google: "Fill Detailed Registration Form (Google Form)",
-            btn_facebook: "Follow Facebook Page",
-            btn_instagram: "Connect via Instagram"
-        }
+        subtitle: "Leave a few lines. Someone from the NAM team will get back to you.",
+        privacy: "What you send is only used to get back to you.",
+        privacy_link: "Privacy policy"
     },
     footer: {
         project: "NAM PROJECT",
         belong_to: "A community of",
         team: "NhiLe Team",
-        slogan: "\"We Provide - Protect\"",
+        slogan: "\"We provide, we protect\"",
         facebook: "Facebook",
         instagram: "Instagram",
         telegram: "Telegram",
-        copyright: "© 2024 NAM Project by NhiLe Team. All Rights Reserved."
+        legal: "Part of the ecosystem of NhiLe Holding Joint Stock Company, tax code 0402230476, Da Nang, Vietnam.",
+        copyright: "© {{year}} NAM Project · NhiLe Team"
+    },
+    privacy: {
+        title: "Privacy policy",
+        updated: "Updated 16 November 2026",
+        back: "Back to home",
+        sections: [
+            { h: "What we receive", p: "When you send the form on nam.nhi.sg we receive what you type in: your name, email or phone number, how you would like to be contacted, your country, what you are interested in, and your message if you write one. The form also sends the page you were on, the page that sent you there, your time zone and your browser type, so the team knows where you came from." },
+            { h: "What we use it for", p: "Only so the NAM team and NhiLe Team can get back to you about what you asked. We do not sell, rent or share your details with anyone outside." },
+            { h: "Where it is kept", p: "Your details are stored in a NhiLe Google Sheet and sent to the contact@nhi.sg mailbox. Only the people who need to contact you can see them. While you are filling in the form, a draft is kept in your own browser and deleted once it is sent." },
+            { h: "Page views", p: "The site uses Google Analytics to count page views. It does not receive the name, email or phone number you type in." },
+            { h: "To see, correct or delete your details", p: "Email contact@nhi.sg with your name and the email or phone number you used. We will do it and let you know." },
+            { h: "Who is responsible", p: "The NAM Project is a community of NhiLe Team, part of the ecosystem of NhiLe Holding Joint Stock Company, tax code 0402230476, Da Nang, Vietnam." }
+        ]
     },
     not_found: {
         title: "Page Not Found",

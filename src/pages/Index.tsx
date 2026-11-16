@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import heroImage from "@/assets/hero-bg.jpg";
-import { useState } from "react";
-import { saveToGoogleSheets } from "@/services/googleSheetsService";
+import { Link } from "react-router-dom";
 import { motion, Variants } from "framer-motion";
-import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { LanguageToggle } from "@/components/LanguageToggle";
 
@@ -40,42 +36,6 @@ const scaleIn: Variants = {
 
 const Index = () => {
   const { t } = useTranslation();
-  const [showThankYou, setShowThankYou] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      // Save to Google Sheets
-      await saveToGoogleSheets(formData);
-      // Wait a bit for effect
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setShowThankYou(true);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      // Still show success message even if Google Sheets fails
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setShowThankYou(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground font-inter overflow-x-hidden">
       <LanguageToggle />
@@ -304,156 +264,33 @@ const Index = () => {
               </p>
             </motion.div>
 
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
-              {/* Step 1 */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="bg-card border border-border/50 p-8 rounded-2xl shadow-xl shadow-black/20"
-              >
-                <h3 className="text-2xl font-bold mb-8 text-primary flex items-center gap-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-background text-sm font-bold">1</span>
-                  {t('form.step1.title')}
-                </h3>
-
-                {!showThankYou ? (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-base">{t('form.step1.name_label')}</Label>
-                      <Input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder={t('form.step1.name_placeholder')}
-                        className="h-12 bg-background/50 text-lg border-white/10 focus:border-primary/50"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-base">{t('form.step1.email_label')}</Label>
-                      <Input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder={t('form.step1.email_placeholder')}
-                        className="h-12 bg-background/50 text-lg border-white/10 focus:border-primary/50"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-base">{t('form.step1.phone_label')}</Label>
-                      <Input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder={t('form.step1.phone_placeholder')}
-                        className="h-12 bg-background/50 text-lg border-white/10 focus:border-primary/50"
-                        required
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full h-14 text-lg font-bold mt-4"
-                      variant="default"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                          {t('form.step1.sending')}
-                        </>
-                      ) : (
-                        t('form.step1.submit')
-                      )}
-                    </Button>
-                    <p className="text-xs text-muted-foreground text-center">
-                      {t('form.step1.privacy')}
-                    </p>
-                  </form>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
-                  >
-                    <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 text-green-500">
-                      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4 text-white">{t('form.step1.success_title')}</h3>
-                    <p className="text-muted-foreground mb-8">{t('form.step1.success_desc')}</p>
-                    <Button
-                      onClick={() => {
-                        setShowThankYou(false);
-                        setFormData({ name: '', email: '', phone: '' });
-                      }}
-                      variant="outline"
-                      className="w-full"
-                    >
-                      {t('form.step1.reset_btn')}
-                    </Button>
-                  </motion.div>
-                )}
-              </motion.div>
-
-              {/* Step 2 */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-card border border-border/50 p-8 rounded-2xl shadow-xl shadow-black/20"
-              >
-                <h3 className="text-2xl font-bold mb-8 text-primary flex items-center gap-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-background text-sm font-bold">2</span>
-                  {t('form.step2.title')}
-                </h3>
-                <div className="grid grid-cols-1 gap-4">
-                  <Button variant="social" className="w-full h-14 bg-blue-600 hover:bg-blue-700 text-white border-0" asChild>
-                    <a
-                      href="https://docs.google.com/forms/d/e/1FAIpQLScCdQhfI1pOT9gUQBTN0hxs0kN15TuZ1U4WEzq-L2aQdukDaQ/viewform"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t('form.step2.btn_google')}
-                    </a>
-                  </Button>
-                  <Button variant="social" className="w-full h-14 bg-indigo-600 hover:bg-indigo-700 text-white border-0" asChild>
-                    <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer">
-                      {t('form.step2.btn_facebook')}
-                    </a>
-                  </Button>
-                  <Button variant="social" className="w-full h-14 bg-pink-600 hover:bg-pink-700 text-white border-0" asChild>
-                    <a href="https://www.instagram.com/namnhi.nlt/" target="_blank" rel="noopener noreferrer">
-                      {t('form.step2.btn_instagram')}
-                    </a>
-                  </Button>
-                </div>
-              </motion.div>
+            {/* One form only: the shared NhiLe lead form. It reports a real error
+                and offers an email fallback when sending fails. */}
+            <div className="max-w-3xl mx-auto">
+              <nlh-contact
+                site="nam"
+                no-heading=""
+                topics-vi="Tham gia Dự án NAM|Hợp tác|Tài trợ – đồng hành"
+                topics-en="Join the NAM Project|Partnership|Sponsorship"
+              />
+              <p className="mt-6 text-sm text-muted-foreground text-center">
+                {t('form.privacy')}{" "}
+                <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4 hover:text-primary">
+                  {t('form.privacy_link')}
+                </Link>
+              </p>
             </div>
           </div>
-        </section>
-        <section className="nlh-lead" id="lien-he">
-          <nlh-contact site="nam" topics-vi="Tham gia Dự án NAM|Hợp tác|Tài trợ – đồng hành" topics-en="Join the NAM Project|Partnership|Sponsorship" />
         </section>
       </main>
 
       <footer className="bg-black py-12 border-t border-white/10">
         <div className="container mx-auto px-6 text-center text-muted-foreground">
-          <h3 className="text-2xl font-black text-foreground mb-4 tracking-wider">{t('footer.project')}</h3>
-          <p className="mb-2 text-lg">
+          <h3 className="text-2xl font-black text-white mb-4 tracking-wider">{t('footer.project')}</h3>
+          <p className="mx-auto mb-2 text-lg">
             {t('footer.belong_to')} <strong className="text-primary">{t('footer.team')}</strong>
           </p>
-          <p className="mb-8 opacity-80">{t('footer.slogan')}</p>
+          <p className="mx-auto mb-8 opacity-80">{t('footer.slogan')}</p>
 
           <div className="flex justify-center flex-wrap gap-8 mb-8">
             <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase text-sm font-bold tracking-widest">{t('footer.facebook')}</a>
@@ -461,7 +298,11 @@ const Index = () => {
             <a href="https://t.me/namnhi" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase text-sm font-bold tracking-widest">{t('footer.telegram')}</a>
           </div>
 
-          <p className="text-sm opacity-50">{t('footer.copyright')}</p>
+          <p className="mx-auto text-sm opacity-70 mb-2">{t('footer.legal')}</p>
+          <p className="mx-auto text-sm opacity-70 mb-2">
+            <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4 hover:text-primary">{t('form.privacy_link')}</Link>
+          </p>
+          <p className="mx-auto text-sm opacity-50">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
         </div>
       </footer>
     </div>
