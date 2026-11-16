@@ -16,19 +16,19 @@ export const LanguageToggle = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
         >
-            <div className="flex items-center bg-black/40 backdrop-blur-md border border-primary/20 rounded-full p-1 relative">
+            <div className="flex items-center backdrop-blur-md border rounded-full p-1 relative" style={{ background: "rgba(13,13,13,.6)", borderColor: "rgba(232,192,112,.35)" }}>
                 <button
                     onClick={() => changeLanguage('vi')}
                     className={cn(
                         "relative z-10 px-4 py-1.5 text-xs sm:text-sm font-bold rounded-full transition-colors duration-300",
-                        i18n.language === 'vi' ? "text-black" : "text-muted-foreground hover:text-foreground"
+                        i18n.language === 'vi' ? "text-[#0D0D0D]" : "text-[#D9D2C6] hover:text-[#F8F4EE]"
                     )}
                 >
                     VN
                     {i18n.language === 'vi' && (
                         <motion.div
                             layoutId="active-lang-pill"
-                            className="absolute inset-0 bg-primary rounded-full -z-10"
+                            className="absolute inset-0 bg-[#E8C070] rounded-full -z-10"
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         />
                     )}
@@ -37,14 +37,14 @@ export const LanguageToggle = () => {
                     onClick={() => changeLanguage('en')}
                     className={cn(
                         "relative z-10 px-4 py-1.5 text-xs sm:text-sm font-bold rounded-full transition-colors duration-300",
-                        i18n.language === 'en' ? "text-black" : "text-muted-foreground hover:text-foreground"
+                        i18n.language === 'en' ? "text-[#0D0D0D]" : "text-[#D9D2C6] hover:text-[#F8F4EE]"
                     )}
                 >
                     EN
                     {i18n.language === 'en' && (
                         <motion.div
                             layoutId="active-lang-pill"
-                            className="absolute inset-0 bg-primary rounded-full -z-10"
+                            className="absolute inset-0 bg-[#E8C070] rounded-full -z-10"
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         />
                     )}
