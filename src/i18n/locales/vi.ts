@@ -3,8 +3,17 @@ export const vi = {
         kicker: "Một dự án của NhiLe Team",
         title: "Dự án NAM",
         line: "Cộng đồng đàn ông Việt cùng rèn trí, rèn sức và giữ tinh thần Việt.",
+        image_note: "Ảnh minh hoạ",
         cta: "Đăng ký tham gia",
         proof: "Thuộc NhiLe Team, trong cộng đồng NhiLe 5.000+ thành viên (nguồn: Hồ sơ gốc NhiLe, lấy ngày 16/11/2026)."
+    },
+    steps: {
+        title: "Tham gia NAM trong 3 bước",
+        items: [
+            { title: "Đăng ký", desc: "Ba ô: tên, số điện thoại, email nếu có." },
+            { title: "Đội NAM liên hệ", desc: "Anh em trong đội gọi hoặc nhắn lại cho bạn." },
+            { title: "Gặp anh em", desc: "Cùng rèn trí, rèn sức với những người cùng chí." }
+        ]
     },
     who: {
         title: "NAM dành cho bạn, nếu bạn…",

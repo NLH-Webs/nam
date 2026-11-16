@@ -20,11 +20,11 @@ export const LanguageToggle = () => {
                 <button
                     onClick={() => changeLanguage('vi')}
                     className={cn(
-                        "relative z-10 px-4 py-1.5 text-xs sm:text-sm font-bold rounded-full transition-colors duration-300",
+                        "relative z-10 min-w-[44px] min-h-[44px] px-4 text-base font-bold rounded-full transition-colors duration-300",
                         i18n.language === 'vi' ? "text-[#0D0D0D]" : "text-[#D9D2C6] hover:text-[#F8F4EE]"
                     )}
                 >
-                    VN
+                    VI
                     {i18n.language === 'vi' && (
                         <motion.div
                             layoutId="active-lang-pill"
@@ -36,7 +36,7 @@ export const LanguageToggle = () => {
                 <button
                     onClick={() => changeLanguage('en')}
                     className={cn(
-                        "relative z-10 px-4 py-1.5 text-xs sm:text-sm font-bold rounded-full transition-colors duration-300",
+                        "relative z-10 min-w-[44px] min-h-[44px] px-4 text-base font-bold rounded-full transition-colors duration-300",
                         i18n.language === 'en' ? "text-[#0D0D0D]" : "text-[#D9D2C6] hover:text-[#F8F4EE]"
                     )}
                 >

@@ -3,8 +3,17 @@ export const en = {
         kicker: "A project by NhiLe Team",
         title: "The NAM Project",
         line: "A community of Vietnamese men who train the mind, train the body and keep the Vietnamese spirit.",
+        image_note: "Illustration",
         cta: "Sign up to join",
         proof: "Part of NhiLe Team, within the NhiLe community of 5,000+ members (source: NhiLe master records, retrieved 16 Nov 2026)."
+    },
+    steps: {
+        title: "Join NAM in 3 steps",
+        items: [
+            { title: "Sign up", desc: "Three fields: name, phone, email if you like." },
+            { title: "The NAM team calls", desc: "Someone from the team calls or messages you." },
+            { title: "Meet the brothers", desc: "Train the mind and body with men who share your aim." }
+        ]
     },
     who: {
         title: "NAM is for you if you…",

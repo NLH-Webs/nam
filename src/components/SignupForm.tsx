@@ -115,8 +115,8 @@ export const SignupForm = () => {
       <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
         <input tabIndex={-1} autoComplete="off" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
       </div>
-      <label className="flex gap-3 items-start text-sm" style={{ color: "var(--nam-cream-2)" }}>
-        <input type="checkbox" className="mt-1 w-5 h-5 flex-none accent-[#B7860B]" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+      <label className="flex gap-3 items-start text-base" style={{ color: "var(--nam-cream-2)" }}>
+        <input type="checkbox" className="mt-0.5 w-6 h-6 flex-none accent-[#B7860B]" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
           {t("form.consent")}{" "}
           <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4" style={{ color: "var(--nam-gold-light)" }}>
@@ -125,12 +125,12 @@ export const SignupForm = () => {
         </span>
       </label>
 
-      {msg && <p role="alert" className="text-sm font-semibold" style={{ color: "#FF9C8F" }}>{msg}</p>}
+      {msg && <p role="alert" className="text-base font-semibold" style={{ color: "#FF9C8F" }}>{msg}</p>}
 
       {status.kind === "error" && (
         <div role="alert" className="rounded-xl p-4 border" style={{ borderColor: "rgba(248,244,238,.3)", background: "var(--nam-black)" }}>
           <p className="font-bold mb-1" style={{ color: "var(--nam-cream)" }}>{t("form.err_title")}</p>
-          <p className="text-sm mb-3" style={{ color: "var(--nam-cream-2)" }}>{t("form.err_body")}</p>
+          <p className="text-base mb-3" style={{ color: "var(--nam-cream-2)" }}>{t("form.err_body")}</p>
           <a href={mailto} data-track="contact" data-cta="form-loi-gui-email" className="underline underline-offset-4 font-semibold" style={{ color: "var(--nam-gold-light)" }}>{t("form.err_mail")}</a>
         </div>
       )}
