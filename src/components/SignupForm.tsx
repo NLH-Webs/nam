@@ -95,7 +95,7 @@ export const SignupForm = () => {
 
   const mailto =
     "mailto:" + TEAM_EMAIL +
-    "?subject=" + encodeURIComponent("[nam.nhi.sg] Gửi bằng email · " + name.trim()) +
+    "?subject=" + encodeURIComponent("[nam] form-loi-gui-email") +
     "&body=" + encodeURIComponent([name.trim(), normPhone(), email.trim(), "", "— nam.nhi.sg · " + location.href, "utm: " + [ss("utm_source"), ss("utm_medium"), ss("utm_campaign")].join(" / ")].join("\n"));
 
   return (
