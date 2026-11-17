@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t">
+  <title id="t">Hình minh hoạ: năm người đàn ông đứng vai kề vai trên đỉnh đồi lúc bình minh</title>
+  <defs>
+    <radialGradient id="sun" cx="1180" cy="600" r="780" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E8C070"/>
+      <stop offset=".2" stop-color="#B7860B"/>
+      <stop offset=".52" stop-color="#3A2A0E"/>
+      <stop offset="1" stop-color="#0D0D0D"/>
+    </radialGradient>
+    <linearGradient id="hillFar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2116"/><stop offset="1" stop-color="#171513"/>
+    </linearGradient>
+    <filter id="rim" x="-10%" y="-10%" width="120%" height="120%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="d"/>
+      <feFlood flood-color="#E8C070" flood-opacity=".75"/>
+      <feComposite in2="d" operator="in" result="edge"/>
+      <feGaussianBlur in="edge" stdDeviation="2" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <symbol id="man" viewBox="0 0 200 600">
+      <circle cx="100" cy="56" r="40"/>
+      <path d="M86 92H114L116 116Q152 120 168 138Q180 158 180 198L182 330Q182 350 166 350H158L152 600H110L100 402L90 600H48L42 350H34Q18 350 18 330L20 198Q20 158 32 138Q48 120 84 116Z"/>
+    </symbol>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sun)"/>
+  <circle cx="1180" cy="640" r="130" fill="#F8F4EE" opacity=".16"/>
+  <path d="M0 650Q300 570 600 620T1150 600T1600 570V900H0Z" fill="url(#hillFar)"/>
+  <g fill="#0D0D0D" filter="url(#rim)">
+    <use href="#man" x="935" y="400" width="118" height="354"/>
+    <use href="#man" x="1018" y="368" width="130" height="390"/>
+    <use href="#man" x="1110" y="348" width="140" height="420"/>
+    <use href="#man" x="1212" y="370" width="130" height="390"/>
+    <use href="#man" x="1305" y="402" width="118" height="354"/>
+  </g>
+  <path d="M0 770Q420 720 820 742T1600 716V900H0Z" fill="#0D0D0D"/>
+</svg>

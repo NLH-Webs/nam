@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import heroImage from "@/assets/hero-bg.jpg";
+// Hình vẽ minh hoạ (tự vẽ, không người thật, không logo), nằm trong public/.
+const heroImage = "/nam-anh-em.svg";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { SignupForm } from "@/components/SignupForm";
 import { Reveal } from "@/components/Reveal";
@@ -39,7 +40,7 @@ const Index = () => {
         style={{
           backgroundImage: `linear-gradient(90deg, rgba(13,13,13,.94) 0%, rgba(13,13,13,.75) 55%, rgba(13,13,13,.35) 100%), url('${heroImage}')`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "70% center",
         }}
       >
         <div className="max-w-6xl w-full mx-auto">
