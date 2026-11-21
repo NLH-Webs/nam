@@ -3,7 +3,7 @@ export const vi = {
         kicker: "Một dự án của NhiLe Team",
         title: "Dự án NAM",
         line: "Cộng đồng đàn ông Việt cùng rèn trí, rèn sức và giữ tinh thần Việt.",
-        image_note: "Ảnh minh hoạ",
+        image_note: "Hình minh hoạ",
         cta: "Đăng ký tham gia",
         proof: "Thuộc NhiLe Team, trong cộng đồng NhiLe 5.000+ thành viên (nguồn: Hồ sơ gốc NhiLe, lấy ngày 16/11/2026)."
     },

@@ -29,7 +29,7 @@ export const SignupForm = () => {
   const [channel, setChannel] = useState<"zalo" | "phone" | "email">("zalo");
   const [consent, setConsent] = useState(false);
   const [hp, setHp] = useState("");
-  const [msg, setMsg] = useState("");
+  const [err, setErr] = useState<{ field: string; msg: string } | null>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const startedAt = useRef(Date.now());
 
@@ -39,19 +39,30 @@ export const SignupForm = () => {
     return "+84 " + p.replace(/^0+/, "");
   };
 
-  const validate = () => {
-    if (!name.trim()) return t("form.need_name");
-    if (channel === "email" ? !email.trim() : !phone.trim()) return channel === "email" ? t("form.need_email") : t("form.need_phone");
-    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return t("form.bad_email");
-    if (!consent) return t("form.need_consent");
-    return "";
+  // Lỗi gắn đúng ô sai, hiện ngay dưới ô đó (nguyên tắc 9: nhận ra và sửa lỗi).
+  const validate = (): { field: string; msg: string } | null => {
+    if (!name.trim()) return { field: "name", msg: t("form.need_name") };
+    if (channel === "email" && !email.trim()) return { field: "email", msg: t("form.need_email") };
+    if (channel !== "email" && !phone.trim()) return { field: "phone", msg: t("form.need_phone") };
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return { field: "email", msg: t("form.bad_email") };
+    if (!consent) return { field: "consent", msg: t("form.need_consent") };
+    return null;
   };
+  const errFor = (f: string) =>
+    err && err.field === f ? (
+      <p id={`err-${f}`} role="alert" className="mt-2 text-base font-semibold" style={{ color: "var(--state-error)" }}>{err.msg}</p>
+    ) : null;
+  const invalid = (f: string) => (err && err.field === f ? { "aria-invalid": true as const, "aria-describedby": `err-${f}` } : {});
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const m = validate();
-    setMsg(m);
-    if (m) return;
+    const v = validate();
+    setErr(v);
+    if (v) {
+      const el = document.querySelector<HTMLInputElement>(`form [name="${v.field}"]`);
+      el?.focus();
+      return;
+    }
     setStatus({ kind: "sending" });
     const payload = {
       site: "nam", lang,
@@ -112,16 +123,17 @@ export const SignupForm = () => {
     <form onSubmit={submit} noValidate className="space-y-5 text-left">
       <label className="block">
         <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{t("form.name")}</span>
-        <input className="nam-input" name="name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input className="nam-input" name="name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} {...invalid("name")} />
+        {errFor("name")}
       </label>
       <fieldset>
         <legend className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{t("form.channel")}</legend>
         <div className="grid grid-cols-3 gap-2">
           {(["zalo", "phone", "email"] as const).map((c) => (
-            <label key={c} className="flex items-center justify-center min-h-[48px] rounded-xl cursor-pointer text-base font-semibold border focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#E8C070]"
+            <label key={c} className="flex items-center justify-center min-h-[48px] rounded-xl cursor-pointer text-base font-semibold border focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#B7860B]"
               style={channel === c
                 ? { background: "var(--nam-gold-light)", color: "var(--nam-black)", borderColor: "var(--nam-gold-light)" }
-                : { background: "var(--nam-black)", color: "var(--nam-cream)", borderColor: "rgba(248,244,238,.28)" }}>
+                : { background: "var(--nam-black)", color: "var(--nam-cream)", borderColor: "var(--nam-line)" }}>
               <input type="radio" name="channel" value={c} checked={channel === c} onChange={() => setChannel(c)} className="sr-only" />
               {t(`form.ch_${c}`)}
             </label>
@@ -130,29 +142,31 @@ export const SignupForm = () => {
       </fieldset>
       <label className="block">
         <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{channel === "email" ? t("form.phone_optional") : t("form.phone")}</span>
-        <input className="nam-input" name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="09xx xxx xxx" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <input className="nam-input" name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="09xx xxx xxx" value={phone} onChange={(e) => setPhone(e.target.value)} {...invalid("phone")} />
+        {errFor("phone")}
       </label>
       <label className="block">
         <span className="block mb-2 font-semibold" style={{ color: "var(--nam-cream)" }}>{channel === "email" ? t("form.email_required") : t("form.email")}</span>
-        <input className="nam-input" name="email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input className="nam-input" name="email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} {...invalid("email")} />
+        {errFor("email")}
       </label>
       <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
         <input tabIndex={-1} autoComplete="off" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
       </div>
       <label className="flex gap-3 items-start text-base" style={{ color: "var(--nam-cream-2)" }}>
-        <input type="checkbox" className="mt-0.5 w-6 h-6 flex-none accent-[#B7860B]" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+        <input type="checkbox" name="consent" className="mt-0.5 w-6 h-6 flex-none accent-[#B7860B]" checked={consent} onChange={(e) => setConsent(e.target.checked)} {...invalid("consent")} />
         <span>
           {t("form.consent")}{" "}
-          <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4" style={{ color: "var(--nam-gold-light)" }}>
+          <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4 inline-block py-[11px]" style={{ color: "var(--nam-gold-light)" }}>
             {t("form.privacy_link")}
           </Link>
         </span>
       </label>
 
-      {msg && <p role="alert" className="text-base font-semibold" style={{ color: "#FF9C8F" }}>{msg}</p>}
+      {errFor("consent")}
 
       {status.kind === "error" && (
-        <div role="alert" className="rounded-xl p-4 border" style={{ borderColor: "rgba(248,244,238,.3)", background: "var(--nam-black)" }}>
+        <div role="alert" className="rounded-xl p-4 border" style={{ borderColor: "var(--nam-line)", background: "var(--nam-black)" }}>
           <p className="font-bold mb-1" style={{ color: "var(--nam-cream)" }}>{t("form.err_title")}</p>
           <p className="text-base mb-3" style={{ color: "var(--nam-cream-2)" }}>{t("form.err_body")}</p>
           <a href={mailto} data-track="contact" data-cta="form-loi-gui-email" className="underline underline-offset-4 font-semibold" style={{ color: "var(--nam-gold-light)" }}>{t("form.err_mail")}</a>

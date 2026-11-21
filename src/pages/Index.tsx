@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import heroImage from "@/assets/hero-bg.jpg";
+// Hình vẽ minh hoạ (tự vẽ, không người thật, không logo), nằm trong public/.
+const heroImage = "/nam-anh-em.svg";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { SignupForm } from "@/components/SignupForm";
 import { Reveal } from "@/components/Reveal";
@@ -35,11 +36,11 @@ const Index = () => {
 
       {/* 1 · HERO: who, what, for whom, one button (Z pattern) */}
       <header
-        className="relative min-h-[92vh] flex items-end sm:items-center px-4 sm:px-8 pt-24 pb-16"
+        className="nam-dark relative min-h-[92vh] flex items-end sm:items-center px-4 sm:px-8 pt-24 pb-16"
         style={{
           backgroundImage: `linear-gradient(90deg, rgba(13,13,13,.94) 0%, rgba(13,13,13,.75) 55%, rgba(13,13,13,.35) 100%), url('${heroImage}')`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "70% center",
         }}
       >
         <div className="max-w-6xl w-full mx-auto">
@@ -129,17 +130,17 @@ const Index = () => {
         </section>
       </main>
 
-      <footer className="px-4 py-12 text-center text-base" style={{ background: "#000", ...cream2 }}>
+      <footer className="nam-dark px-4 py-12 text-center text-base" style={{ background: "var(--nam-black)", ...cream2 }}>
         <p className="mx-auto text-lg font-black tracking-wider mb-2" style={cream}>{t("footer.project")}</p>
         <p className="mx-auto mb-6">{t("footer.belong_to")} <span style={gold}>{t("footer.team")}</span></p>
         <div className="flex justify-center flex-wrap gap-6 mb-6 font-semibold">
-          <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer" className="hover:underline" data-track="contact" data-cta="footer-facebook">Facebook</a>
-          <a href="https://www.instagram.com/namnhi.nlt/" target="_blank" rel="noopener noreferrer" className="hover:underline" data-track="contact" data-cta="footer-instagram">Instagram</a>
-          <a href="https://t.me/namnhi" target="_blank" rel="noopener noreferrer" className="hover:underline" data-track="contact" data-cta="footer-telegram">Telegram</a>
+          <a href="https://www.facebook.com/nam.nhileteam" target="_blank" rel="noopener noreferrer" className="nam-link px-2 hover:underline" data-track="contact" data-cta="footer-facebook">Facebook</a>
+          <a href="https://www.instagram.com/namnhi.nlt/" target="_blank" rel="noopener noreferrer" className="nam-link px-2 hover:underline" data-track="contact" data-cta="footer-instagram">Instagram</a>
+          <a href="https://t.me/namnhi" target="_blank" rel="noopener noreferrer" className="nam-link px-2 hover:underline" data-track="contact" data-cta="footer-telegram">Telegram</a>
         </div>
         <p className="mx-auto mb-2">{t("footer.legal")}</p>
         <p className="mx-auto mb-2">
-          <Link to="/chinh-sach-bao-mat" className="underline underline-offset-4" data-track="contact" data-cta="footer-chinh-sach">{t("form.privacy_link")}</Link>
+          <Link to="/chinh-sach-bao-mat" className="nam-link underline underline-offset-4" data-track="contact" data-cta="footer-chinh-sach">{t("form.privacy_link")}</Link>
         </p>
         <p className="mx-auto opacity-80">{t("footer.copyright", { year: new Date().getFullYear() })}</p>
       </footer>

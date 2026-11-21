@@ -16,7 +16,7 @@ export const LanguageToggle = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
         >
-            <div className="flex items-center backdrop-blur-md border rounded-full p-1 relative" style={{ background: "rgba(13,13,13,.6)", borderColor: "rgba(232,192,112,.35)" }}>
+            <div className="flex items-center backdrop-blur-md border rounded-full p-1 relative" style={{ background: "#0D0D0D", borderColor: "rgba(232,192,112,.45)" }}>
                 <button
                     onClick={() => changeLanguage('vi')}
                     className={cn(

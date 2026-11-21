@@ -36,22 +36,50 @@ All colors MUST be HSL.
 /* Shared lead form section (nlh-contact). */
 .nlh-lead { padding: var(--s-8) var(--gutter); background: var(--bg-sunken); }
 
-/* NAM — Brand Guide v3.0 (16/11/2026). 60 đen · 20 kem · 20 vàng kim.
-   Đỏ thẫm chỉ dành cho nút chính. Không đỏ tươi, không chữ vàng trên nền đỏ. */
+/* NAM — màu khớp demo.nlh.vn (21/11/2026), sáng và tối theo máy người xem.
+   Tên biến cũ giữ nguyên để không phải đổi từng chỗ dùng:
+   --nam-black = nền, --nam-black-2 = mặt thẻ, --nam-cream = chữ, --nam-cream-2 = chữ phụ,
+   --nam-gold = vàng kim trang trí, --nam-gold-light = chữ vàng, --nam-red = chỉ nút chính. */
 :root {
-  --nam-black: #0D0D0D;
-  --nam-black-2: #171513;
+  --nam-black: #F8F4EE;
+  --nam-black-2: #FFFFFF;
+  --nam-cream: #0D0D0D;
+  --nam-cream-2: #4A433D;
+  --nam-line: #E2D7C7;
+  --nam-gold: #B7860B;
+  --nam-gold-light: #7A5906;
   --nam-red: #8B1A1A;
   --nam-red-hover: #A32020;
-  --nam-gold: #B7860B;
-  --nam-gold-light: #E8C070;
-  --nam-cream: #F8F4EE;
-  --nam-cream-2: #D9D2C6;
+  --nam-cta-fg: #FFFFFF;
+  --state-error: #7A5906;
+  color-scheme: light dark;
 }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --nam-black: #0D0D0D;
+    --nam-black-2: #1B1716;
+    --nam-cream: #F8F4EE;
+    --nam-cream-2: #CFC4B8;
+    --nam-line: #332B28;
+    --nam-gold-light: #E8C070;
+    --state-error: #E8C070;
+  }
+}
+/* Dải luôn tối (màn đầu có hình vẽ, chân trang): dùng bảng màu tối dù máy đang sáng. */
+.nam-dark {
+  --nam-black: #0D0D0D;
+  --nam-black-2: #1B1716;
+  --nam-cream: #F8F4EE;
+  --nam-cream-2: #CFC4B8;
+  --nam-line: #332B28;
+  --nam-gold-light: #E8C070;
+  --state-error: #E8C070;
+}
+body { background: var(--nam-black); }
 .nam-cta {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 52px; padding: 0 32px; border-radius: 999px;
-  background: var(--nam-red); color: var(--nam-cream);
+  background: var(--nam-red); color: var(--nam-cta-fg);
   font-weight: 700; font-size: 1.125rem; letter-spacing: .01em;
   box-shadow: 0 10px 30px -10px rgba(139, 26, 26, .7);
   transition: background-color .2s ease, transform .2s ease;
@@ -62,10 +90,12 @@ All colors MUST be HSL.
 .nam-input {
   width: 100%; min-height: 52px; padding: 0 16px; font-size: 16px;
   color: var(--nam-cream); background: var(--nam-black);
-  border: 1px solid rgba(248, 244, 238, .28); border-radius: 12px;
+  border: 1px solid var(--nam-line); border-radius: 12px;
 }
-.nam-input::placeholder { color: rgba(248, 244, 238, .5); }
-.nam-input:focus { outline: 3px solid rgba(232, 192, 112, .5); outline-offset: 1px; border-color: var(--nam-gold-light); }
+.nam-input::placeholder { color: var(--nam-cream-2); opacity: .8; }
+.nam-input[aria-invalid="true"] { border-color: var(--state-error); border-width: 2px; }
+.nam-link { display: inline-flex; align-items: center; min-height: 44px; }
+.nam-input:focus { outline: 3px solid var(--nam-gold); outline-offset: 1px; border-color: var(--nam-gold); }
 
 /* Chuyển động khi cuộn: 300 ms, chỉ opacity và dịch nhẹ. Tắt khi người dùng chọn giảm chuyển động. */
 .nam-reveal { opacity: 0; transform: translateY(16px); transition: opacity .3s ease-out, transform .3s ease-out; }
